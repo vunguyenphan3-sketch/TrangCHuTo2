@@ -30,12 +30,11 @@
         header { text-align: center; z-index: 10; margin-bottom: 30px; width: 100%; }
         header h1 {
             font-family: 'Nunito', sans-serif; 
-            font-size: clamp(2rem, 8vw, 3.5rem); /* Tự động co giãn chữ */
+            font-size: clamp(2rem, 8vw, 3.5rem);
             color: var(--cream);
             text-shadow: 3px 3px 0px var(--navy), 5px 5px 15px rgba(0,0,0,0.5);
         }
 
-        /* Khung thông tin */
         .tet-info {
             max-width: 900px;
             background: rgba(245, 245, 220, 0.08);
@@ -72,75 +71,106 @@
         .tet-info p { margin-bottom: 15px; text-indent: 30px; color: #f0f0f0; }
         .tet-info ul { margin-left: 40px; margin-bottom: 20px; list-style-type: square; color: #e0e0e0; }
         .tet-info li { margin-bottom: 8px; }
-/* ===============================
-   MEMBER CARD MỚI (3D + OVERLAY)
-================================ */
 
-.member-container{
-width:100%;
-max-width:1100px;
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-gap:30px;
-margin-bottom:60px;
-perspective:1200px;
-}
+        .loi-ngo {
+            max-width: 900px;
+            background: rgba(128, 0, 32, 0.2);
+            border-left: 5px solid var(--gold-soft);
+            padding: 30px;
+            border-radius: 0 20px 20px 0;
+            margin-bottom: 50px;
+            z-index: 10;
+        }
+        .loi-ngo i { line-height: 1.8; display: block; text-align: center; font-size: 1.1rem; }
 
-.member-card{
-position:relative;
-overflow:hidden;
-border-radius:20px;
-border:2px solid var(--gold-soft);
-box-shadow:0 20px 40px rgba(0,0,0,0.6);
-transform-style:preserve-3d;
-transition:transform .2s ease;
-background:#000;
-}
+        .poem-section {
+            width: 100%;
+            max-width: 900px;
+            margin-bottom: 60px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            z-index: 10;
+        }
 
-.member-card img{
-width:100%;
-height:260px;
-object-fit:cover;
-transition:transform .6s ease;
-}
+        .poem-card {
+            background: rgba(0, 0, 128, 0.4); 
+            border: 2px solid var(--gold-soft);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            transition: 0.3s;
+        }
 
-.member-overlay{
-position:absolute;
-inset:0;
-background:rgba(0,0,0,.6);
-display:flex;
-align-items:center;
-justify-content:center;
-opacity:0;
-transition:.4s;
-}
+        .poem-card:hover { transform: translateY(-10px); background: rgba(128, 0, 32, 0.4); }
+        .poem-card h4 {
+            color: var(--gold-soft);
+            font-family: 'Nunito', sans-serif;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        .poem-content { font-style: italic; line-height: 2; color: var(--cream); font-size: 1.1rem; }
+        .poem-card::before { content: "🏮"; position: absolute; top: -15px; left: -15px; font-size: 25px; }
 
-.member-overlay span{
-color:#fff;
-font-weight:700;
-font-size:1.2rem;
-letter-spacing:1px;
-transform:translateY(20px);
-transition:.4s;
-}
+        /* --- PHẦN THÀNH VIÊN ĐÃ ĐƯỢC THU NHỎ THEO Ý BẠN --- */
+        .member-container {
+            width: 100%;
+            max-width: 1000px; /* Thu hẹp độ rộng tổng thể một chút */
+            display: grid;
+            /* Giảm minmax từ 200px xuống 150px để các ô nhỏ lại */
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+            gap: 20px; /* Thu hẹp khoảng cách giữa các ô */
+            margin-bottom: 60px;
+            perspective: 1200px;
+        }
 
-.member-card:hover img{
-transform:scale(1.15);
-}
+        .member-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px; /* Bo góc nhẹ hơn cho hợp với kích thước nhỏ */
+            border: 2px solid var(--gold-soft);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            transition: transform .2s ease;
+            background: #000;
+        }
 
-.member-card:hover .member-overlay{
-opacity:1;
-}
+        .member-card img {
+            width: 100%;
+            height: 180px; /* Giảm chiều cao từ 260px xuống 180px */
+            object-fit: cover;
+            transition: transform .6s ease;
+            display: block;
+        }
 
-.member-card:hover .member-overlay span{
-transform:translateY(0);
-}
+        .member-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: .4s;
+        }
 
-.member-card:hover{
-border-color:white;
-}
+        .member-overlay span {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1rem; /* Giảm font chữ một chút cho cân xứng */
+            letter-spacing: 1px;
+            transform: translateY(15px);
+            transition: .4s;
+        }
 
-        /* Câu đối */
+        .member-card:hover img { transform: scale(1.1); }
+        .member-card:hover .member-overlay { opacity: 1; }
+        .member-card:hover .member-overlay span { transform: translateY(0); }
+        .member-card:hover { border-color: white; }
+
+        /* --- CÁC PHẦN CÒN LẠI GIỮ NGUYÊN --- */
         .cau-doi {
             position: fixed;
             top: 50%; transform: translateY(-50%);
@@ -167,7 +197,6 @@ border-color:white;
 
         @media (max-width: 1024px) { .cau-doi { display: none; } }
 
-        /* MỤC HÌNH ẢNH TẾT */
         .tet-gallery {
             width: 100%;
             max-width: 1000px;
@@ -190,22 +219,11 @@ border-color:white;
         }
 
         .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: all 0.5s ease;
+            width: 100%; height: 100%; object-fit: cover; display: block; transition: all 0.5s ease;
         }
 
-        .gallery-item:hover {
-            transform: translateY(-5px);
-            border-color: white;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.1);
-            filter: brightness(1.1);
-        }
+        .gallery-item:hover { transform: translateY(-5px); border-color: white; }
+        .gallery-item:hover img { transform: scale(1.1); filter: brightness(1.1); }
 
         .gallery-caption {
             position: absolute;
@@ -218,56 +236,6 @@ border-color:white;
             backdrop-filter: blur(5px);
             transform: translateY(0);
             transition: transform 0.3s ease;
-        }
-
-        /* GÓC THƠ */
-        .poem-section {
-            width: 100%;
-            max-width: 900px;
-            margin-bottom: 60px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            z-index: 10;
-        }
-
-        .poem-card {
-            background: rgba(0, 0, 128, 0.4); /* Nền Navy trong suốt */
-            border: 2px solid var(--gold-soft);
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            position: relative;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            transition: 0.3s;
-        }
-
-        .poem-card:hover {
-            transform: translateY(-10px);
-            background: rgba(128, 0, 32, 0.4); /* Chuyển sang Đỏ đô khi hover */
-        }
-
-        .poem-card h4 {
-            color: var(--gold-soft);
-            font-family: 'Nunito', sans-serif;
-            font-size: 1.4rem;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
-
-        .poem-content {
-            font-style: italic;
-            line-height: 2;
-            color: var(--cream);
-            font-size: 1.1rem;
-        }
-
-        .poem-card::before {
-            content: "🏮";
-            position: absolute;
-            top: -15px;
-            left: -15px;
-            font-size: 25px;
         }
     </style>
 </head>
@@ -283,9 +251,8 @@ border-color:white;
 
     <section class="tet-info">
         <h2>Tết Nguyên Đán: Tinh Hoa Văn Hóa Việt</h2>
-        
         <h3>1. Nguồn gốc lịch sử và Tên gọi</h3>
-        <p>Tết Nguyên Đán (hay còn gọi là Tết Cả, Tết Ta, Tết Âm lịch) là lễ hội lớn nhất, quan trọng nhất của người Việt Nam từ hàng nghìn năm nay. Chữ "Tết" vốn là biến âm của chữ "Tiết", "Nguyên" có nghĩa là sự bắt đầu, và "Đán" là buổi sớm mai.</p>
+        <p>Tết Nguyên Đán (hay còn gọi là Tết Cả, Tết Ta, Tết Âm lịch) là lễ hội lớn nhất, quan trọng nhất của người Việt Nam từ hàng nghìn năm nay. Chữ "Tết" vốn là biến âm của chữ "Tiết", " Nguyên" có nghĩa là sự bắt đầu, và "Đán" là buổi sớm mai.</p>
         <p>Theo truyền thuyết, tục ăn Tết đã có từ thời Vua Hùng với sự tích "Bánh chưng bánh giầy", khẳng định Tết là sản phẩm tinh thần thuần túy của người Việt cổ từ nền văn minh lúa nước.</p>
         
         <h3>2. Giao thoa giữa Đất Trời và Con Người</h3>
@@ -301,6 +268,14 @@ border-color:white;
 
         <h3>4. Giá trị của sự Đoàn viên và Hiếu nghĩa</h3>
         <p>Ý nghĩa nhân văn nhất của Tết nằm ở hai chữ "Sum họp". Đây là lúc để con cháu bày tỏ lòng hiếu thảo với tổ tiên, ông bà và làm mới tâm hồn cho một hành trình tiếp theo.</p>
+    </section>
+
+    <section class="loi-ngo">
+        <i>
+            "Xuân Bính Ngọ 2026 đã gõ cửa, mang theo hơi thở ấm áp của sự khởi đầu và những hy vọng mới. 
+            Giữa dòng chảy của thời gian, chúng mình – những thành viên của Tổ 2, lớp 12D5 – 
+            xin được gửi gắm vào trang báo tường này chút hương sắc Tết truyền thống cùng lời chúc Mã đáo thành công rực rỡ nhất!"
+        </i>
     </section>
 
     <h3 style="color: var(--gold-soft); margin-bottom: 20px; text-align: center; letter-spacing: 2px; text-transform: uppercase;">
@@ -326,67 +301,64 @@ border-color:white;
         </div>
     </div>
 
-  
-    
+    <div class="poem-section">
+        <div class="poem-card">
+            <h4>Xuân Về</h4>
+            <div class="poem-content">
+                "Năm cũ vừa qua bước sang năm mới<br>
+                Thi đua học tốt điểm mười nở hoa<br>
+                Tổ hai gắn kết một nhà <br>
+                Xuân sang rộn rã nhắp nơi tiếng cười."
+            </div>
+        </div>
+        <div class="poem-card">
+            <h4>Lời Chúc</h4>
+            <div class="poem-content">
+                "Chúc thầy chúc bạn - Sức khỏe dồi dào<br>
+                Tiền vào như nước - Niềm vui dâng trào<br>
+                Tháng ngày hăng hái - Chẳng chút hư hao<br>
+                Tương lai rạng rỡ - Tựa những vì sao."
+            </div>
+        </div>
+    </div>
 
-    <h3 style="margin:40px 0 30px;text-align:center;">THÀNH VIÊN TỔ 2</h3>
+    <h3 style="margin:40px 0 30px;text-align:center; color: var(--gold-soft); letter-spacing: 2px;">THÀNH VIÊN TỔ 2</h3>
 
-<div class="member-container">
-
-<a href="https://vunguyenphan3-sketch.github.io/kimNgan/" class="member-card">
-<img src="mèo.jpg" alt="">
-<div class="member-overlay"><span>Kim Ngân</span></div>
-</a>
-
-<a href="https://vunguyenphan3-sketch.github.io/hoang3/" class="member-card">
-<img src="HuyHoang.jpg" alt="">
-<div class="member-overlay"><span>Huy Hoàng</span></div>
-</a>
-
-<a href="https://vunguyenphan3-sketch.github.io/MyDuyen/" class="member-card">
-<img src="duyen.jpg" alt="">
-<div class="member-overlay"><span>Mỹ Duyên</span></div>
-</a>
-
-<a href="https://vunguyenphan3-sketch.github.io/vu/" class="member-card">
-<img src="FangAva1.jpg" alt="">
-<div class="member-overlay"><span>Phan Vũ</span></div>
-</a>
-
-<a href="https://vunguyenphan3-sketch.github.io/khoa/" class="member-card">
-<img src="LeAnhKhoa.jpg" alt="">
-<div class="member-overlay"><span>Lê Anh Khoa</span></div>
-</a>
-
-<a href="https://vunguyenphan3-sketch.github.io/ML/" class="member-card">
-<img src="ML.jpg" alt="">
-<div class="member-overlay"><span>Mỹ Linh</span></div>
-</a>
-
-<a href="https://vunguyenphan3-sketch.github.io/camha/" class="member-card">
-<img src="Camha.jpg" alt="">
-<div class="member-overlay"><span>Cẩm Hà</span></div>
-</a>
-
-<a href="https://vunguyenphan3-sketch.github.io/thy/" class="member-card">
-<img src="thy.jpg" alt="">
-<div class="member-overlay"><span>Thy</span></div>
-</a>
-
-<a href="https://vunguyenphan3-sketch.github.io/han/" class="member-card">
-<img src="han.jpg" alt="">
-<div class="member-overlay"><span>Du Hân</span></div>
-</a>
-
-<a href="https://vunguyenphan3-sketch.github.io/Ph-ngANh/" class="member-card">
-<img src="Error12.jpg" alt="">
-<div class="member-overlay"><span>Phương Anh</span></div>
-</a>
-
-<a href="https://vunguyenphan3-sketch.github.io/NhuAnh/" class="member-card">
-<img src="nhuanh.jpg" alt="">
-<div class="member-overlay"><span>Như Ánh</span></div>
-</a>
+    <div class="member-container">
+        <a href="https://vunguyenphan3-sketch.github.io/kimNgan/" class="member-card">
+            <img src="mèo.jpg" alt=""><div class="member-overlay"><span>Kim Ngân</span></div>
+        </a>
+        <a href="https://vunguyenphan3-sketch.github.io/hoang3/" class="member-card">
+            <img src="HuyHoang.jpg" alt=""><div class="member-overlay"><span>Huy Hoàng</span></div>
+        </a>
+        <a href="https://vunguyenphan3-sketch.github.io/MyDuyen/" class="member-card">
+            <img src="duyen.jpg" alt=""><div class="member-overlay"><span>Mỹ Duyên</span></div>
+        </a>
+        <a href="https://vunguyenphan3-sketch.github.io/vu/" class="member-card">
+            <img src="FangAva1.jpg" alt=""><div class="member-overlay"><span>Phan Vũ</span></div>
+        </a>
+        <a href="https://vunguyenphan3-sketch.github.io/khoa/" class="member-card">
+            <img src="LeAnhKhoa.jpg" alt=""><div class="member-overlay"><span>Lê Anh Khoa</span></div>
+        </a>
+        <a href="https://vunguyenphan3-sketch.github.io/ML/" class="member-card">
+            <img src="ML.jpg" alt=""><div class="member-overlay"><span>Mỹ Linh</span></div>
+        </a>
+        <a href="https://vunguyenphan3-sketch.github.io/camha/" class="member-card">
+            <img src="Camha.jpg" alt=""><div class="member-overlay"><span>Cẩm Hà</span></div>
+        </a>
+        <a href="https://vunguyenphan3-sketch.github.io/thy/" class="member-card">
+            <img src="thy.jpg" alt=""><div class="member-overlay"><span>Thy</span></div>
+        </a>
+        <a href="https://vunguyenphan3-sketch.github.io/han/" class="member-card">
+            <img src="han.jpg" alt=""><div class="member-overlay"><span>Du Hân</span></div>
+        </a>
+        <a href="https://vunguyenphan3-sketch.github.io/Ph-ngANh/" class="member-card">
+            <img src="Error12.jpg" alt=""><div class="member-overlay"><span>Phương Anh</span></div>
+        </a>
+        <a href="https://vunguyenphan3-sketch.github.io/NhuAnh/" class="member-card">
+            <img src="nhuanh.jpg" alt=""><div class="member-overlay"><span>Như Ánh</span></div>
+        </a>
+    </div>
 
     <footer>&copy; 2026 | DESIGNED BY FANG | 12D5 - TRƯỜNG THPT NGUYỄN KHUYẾN</footer>
 
