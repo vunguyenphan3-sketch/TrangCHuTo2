@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Báo Tường | Tổ 2 - 12D5</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Nunito:wght@800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --deep-red: #800020;    /* Đỏ đô */
+            --cream: #F5F5DC;       /* Trắng kem */
+            --navy: #000080;        /* Xanh Navy */
+            --gold-soft: #D4AF37;   /* Vàng đồng nhẹ */
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #000033 0%, var(--deep-red) 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--cream);
+            padding: 40px 20px;
+            overflow-x: hidden;
+        }
+
+        header { text-align: center; z-index: 10; margin-bottom: 30px; width: 100%; }
+        header h1 {
+            font-family: 'Nunito', sans-serif; 
+            font-size: clamp(2rem, 8vw, 3.5rem); /* Tự động co giãn chữ */
+            color: var(--cream);
+            text-shadow: 3px 3px 0px var(--navy), 5px 5px 15px rgba(0,0,0,0.5);
+        }
+
+        /* Khung thông tin */
+        .tet-info {
+            max-width: 900px;
+            background: rgba(245, 245, 220, 0.08);
+            border: 1px solid rgba(245, 245, 220, 0.3);
+            padding: clamp(20px, 5vw, 40px);
+            border-radius: 20px;
+            text-align: justify;
+            margin-bottom: 60px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+            line-height: 1.8;
+        }
+
+        .tet-info h2 {
+            color: var(--cream);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            text-align: center;
+            border-bottom: 2px solid var(--navy);
+            padding-bottom: 15px;
+            letter-spacing: 3px;
+            font-size: 1.8rem;
+        }
+
+        .tet-info h3 { 
+            color: var(--gold-soft); 
+            margin-top: 25px; 
+            margin-bottom: 10px; 
+            border-left: 4px solid var(--gold-soft);
+            padding-left: 15px;
+        }
+
+        .tet-info p { margin-bottom: 15px; text-indent: 30px; color: #f0f0f0; }
+        .tet-info ul { margin-left: 40px; margin-bottom: 20px; list-style-type: square; color: #e0e0e0; }
+        .tet-info li { margin-bottom: 8px; }
+/* ===============================
+   MEMBER CARD MỚI (3D + OVERLAY)
+================================ */
+
+.member-container{
+width:100%;
+max-width:1100px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:30px;
+margin-bottom:60px;
+perspective:1200px;
+}
+
+.member-card{
+position:relative;
+overflow:hidden;
+border-radius:20px;
+border:2px solid var(--gold-soft);
+box-shadow:0 20px 40px rgba(0,0,0,0.6);
+transform-style:preserve-3d;
+transition:transform .2s ease;
+background:#000;
+}
+
+.member-card img{
+width:100%;
+height:260px;
+object-fit:cover;
+transition:transform .6s ease;
+}
+
+.member-overlay{
+position:absolute;
+inset:0;
+background:rgba(0,0,0,.6);
+display:flex;
+align-items:center;
+justify-content:center;
+opacity:0;
+transition:.4s;
+}
+
+.member-overlay span{
+color:#fff;
+font-weight:700;
+font-size:1.2rem;
+letter-spacing:1px;
+transform:translateY(20px);
+transition:.4s;
+}
+
+.member-card:hover img{
+transform:scale(1.15);
+}
+
+.member-card:hover .member-overlay{
+opacity:1;
+}
+
+.member-card:hover .member-overlay span{
+transform:translateY(0);
+}
+
+.member-card:hover{
+border-color:white;
+}
+
+        /* Câu đối */
+        .cau-doi {
+            position: fixed;
+            top: 50%; transform: translateY(-50%);
+            width: 75px;
+            background: var(--navy);
+            color: var(--cream);
+            padding: 20px 5px;
+            text-align: center;
+            font-size: 1.6rem;
+            border: 2px solid var(--cream);
+            z-index: 999;
+            border-radius: 8px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+            font-weight: bold;
+            line-height: 1.4;
+        }
+        .cau-doi-trai { left: 20px; }
+        .cau-doi-phai { right: 20px; }
+
+        .petal { position: fixed; top: -50px; pointer-events: none; z-index: 100; animation: fall linear forwards; opacity: 0.7; }
+        @keyframes fall { to { transform: translateY(110vh) rotate(540deg); } }
+
+        footer { margin-top: auto; padding: 20px; color: var(--cream); font-size: 0.9rem; text-align: center; opacity: 0.6; width: 100%; }
+
+        @media (max-width: 1024px) { .cau-doi { display: none; } }
+
+        /* MỤC HÌNH ẢNH TẾT */
+        .tet-gallery {
+            width: 100%;
+            max-width: 1000px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            margin-bottom: 50px;
+            z-index: 10;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            border: 2px solid var(--gold-soft);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+            height: 250px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: all 0.5s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            border-color: white;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+            filter: brightness(1.1);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--cream);
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9rem;
+            backdrop-filter: blur(5px);
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        /* GÓC THƠ */
+        .poem-section {
+            width: 100%;
+            max-width: 900px;
+            margin-bottom: 60px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            z-index: 10;
+        }
+
+        .poem-card {
+            background: rgba(0, 0, 128, 0.4); /* Nền Navy trong suốt */
+            border: 2px solid var(--gold-soft);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            transition: 0.3s;
+        }
+
+        .poem-card:hover {
+            transform: translateY(-10px);
+            background: rgba(128, 0, 32, 0.4); /* Chuyển sang Đỏ đô khi hover */
+        }
+
+        .poem-card h4 {
+            color: var(--gold-soft);
+            font-family: 'Nunito', sans-serif;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .poem-content {
+            font-style: italic;
+            line-height: 2;
+            color: var(--cream);
+            font-size: 1.1rem;
+        }
+
+        .poem-card::before {
+            content: "🏮";
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            font-size: 25px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cau-doi cau-doi-trai">MÃ ĐÁO THÀNH CÔNG</div>
+    <div class="cau-doi cau-doi-phai">BÍNH NGỌ ĐẠI CÁT</div>
+    
+    <header>
+        <h1>🌸 Báo Tường tết 12D5 🌸</h1>
+        <p style="color: var(--gold-soft); font-weight: bold; letter-spacing: 3px; margin-top: 10px;">TỔ 2 - XUÂN BÍNH NGỌ 2026</p>
+    </header>
+
+    <section class="tet-info">
+        <h2>Tết Nguyên Đán: Tinh Hoa Văn Hóa Việt</h2>
+        
+        <h3>1. Nguồn gốc lịch sử và Tên gọi</h3>
+        <p>Tết Nguyên Đán (hay còn gọi là Tết Cả, Tết Ta, Tết Âm lịch) là lễ hội lớn nhất, quan trọng nhất của người Việt Nam từ hàng nghìn năm nay. Chữ "Tết" vốn là biến âm của chữ "Tiết", "Nguyên" có nghĩa là sự bắt đầu, và "Đán" là buổi sớm mai.</p>
+        <p>Theo truyền thuyết, tục ăn Tết đã có từ thời Vua Hùng với sự tích "Bánh chưng bánh giầy", khẳng định Tết là sản phẩm tinh thần thuần túy của người Việt cổ từ nền văn minh lúa nước.</p>
+        
+        <h3>2. Giao thoa giữa Đất Trời và Con Người</h3>
+        <p>Tết là thời điểm "vạn vật đổi mới", khi tiết trời chuyển từ đông sang xuân. Đây là dịp để tạ ơn thần linh đã ban cho mùa màng bội thu và cầu mong một năm mới mưa thuận gió hòa.</p>
+        
+        <h3>3. Những phong tục truyền thống đặc sắc</h3>
+        <ul>
+            <li><strong>Cúng Ông Công Ông Táo (23 tháng Chạp):</strong> Tiễn vị thần bếp về trời.</li>
+            <li><strong>Gói Bánh Chưng, Bánh Tét:</strong> Biểu tượng của sự đoàn viên bên nồi bánh đêm giao thừa.</li>
+            <li><strong>Xông đất và Chúc Tết:</strong> Mang lại may mắn và niềm vui cho những ngày đầu năm.</li>
+            <li><strong>Lì xì (Mừng tuổi):</strong> Trao nhau những phong bao đỏ kèm lời chúc bình an.</li>
+        </ul>
+
+        <h3>4. Giá trị của sự Đoàn viên và Hiếu nghĩa</h3>
+        <p>Ý nghĩa nhân văn nhất của Tết nằm ở hai chữ "Sum họp". Đây là lúc để con cháu bày tỏ lòng hiếu thảo với tổ tiên, ông bà và làm mới tâm hồn cho một hành trình tiếp theo.</p>
+    </section>
+
+    <h3 style="color: var(--gold-soft); margin-bottom: 20px; text-align: center; letter-spacing: 2px; text-transform: uppercase;">
+        🖼️ Khoảnh Khắc Ngày Tết
+    </h3>
+
+    <div class="tet-gallery">
+        <div class="gallery-item">
+            <img src="anh-tet-1.jpg" alt="Bánh chưng">
+            <div class="gallery-caption">Bánh chưng xanh đón Tết</div>
+        </div>
+        <div class="gallery-item">
+            <img src="anh-tet-2.jpg" alt="Hoa mai">
+            <div class="gallery-caption">Sắc hoa xuân rạng rỡ</div>
+        </div>
+        <div class="gallery-item">
+            <img src="anh-tet-3.jpg" alt="Mâm ngũ quả">
+            <div class="gallery-caption">Mâm ngũ quả sum vầy</div>
+        </div>
+        <div class="gallery-item">
+            <img src="anh-tet-4.jpg" alt="Chợ tết">
+            <div class="gallery-caption">Không khí chợ Tết nhộn nhịp</div>
+        </div>
+    </div>
+
+    <h3 style="color: var(--gold-soft); margin-bottom: 20px; text-align: center; letter-spacing: 2px; text-transform: uppercase;">
+        📜 Góc Thơ Ngày Tết
+    </h3>
+
+    <div class="poem-section">
+        <div class="poem-card">
+            <h4>Xuân Về Trên 12D5</h4>
+            <div class="poem-content">
+                "Bính Ngọ vừa sang nắng rạng ngời<br>
+                Lớp mình trò truyện rộn vang tiếng cười<br>
+                Tổ hai đoàn kết, cứ vậy tiến lên <br>
+                Gặt hái những điều kết bền <br>
+                Dù gian dù khổ , cứ bên bạn bè<br>"
+            </div>
+        </div>
+
+        <div class="poem-card">
+            <h4>Lời Chúc Đầu Năm</h4>
+            <div class="poem-content">
+                "Mai vàng hé nhụy đón xuân sang<br>
+                Chúc cho bè bạn chữ vinh quang<br>
+                Thi cử đỗ cao, lòng vững chí<br>
+                Tương lai rộng mở, bước thênh thang."
+            </div>
+        </div>
+    </div>
+
+    <h3 style="margin:40px 0 30px;text-align:center;">THÀNH VIÊN TỔ 2</h3>
+
+<div class="member-container">
+
+<a href="https://vunguyenphan3-sketch.github.io/kimNgan/" class="member-card">
+<img src="mèo.jpg" alt="">
+<div class="member-overlay"><span>Kim Ngân</span></div>
+</a>
+
+<a href="https://vunguyenphan3-sketch.github.io/hoang3/" class="member-card">
+<img src="HuyHoang.jpg" alt="">
+<div class="member-overlay"><span>Huy Hoàng</span></div>
+</a>
+
+<a href="https://vunguyenphan3-sketch.github.io/MyDuyen/" class="member-card">
+<img src="duyen.jpg" alt="">
+<div class="member-overlay"><span>Mỹ Duyên</span></div>
+</a>
+
+<a href="https://vunguyenphan3-sketch.github.io/vu/" class="member-card">
+<img src="FangAva1.jpg" alt="">
+<div class="member-overlay"><span>Phan Vũ</span></div>
+</a>
+
+<a href="https://vunguyenphan3-sketch.github.io/khoa/" class="member-card">
+<img src="LeAnhKhoa.jpg" alt="">
+<div class="member-overlay"><span>Lê Anh Khoa</span></div>
+</a>
+
+<a href="https://vunguyenphan3-sketch.github.io/ML/" class="member-card">
+<img src="ML.jpg" alt="">
+<div class="member-overlay"><span>Mỹ Linh</span></div>
+</a>
+
+<a href="https://vunguyenphan3-sketch.github.io/camha/" class="member-card">
+<img src="Camha.jpg" alt="">
+<div class="member-overlay"><span>Cẩm Hà</span></div>
+</a>
+
+<a href="https://vunguyenphan3-sketch.github.io/thy/" class="member-card">
+<img src="thy.jpg" alt="">
+<div class="member-overlay"><span>Thy</span></div>
+</a>
+
+<a href="https://vunguyenphan3-sketch.github.io/han/" class="member-card">
+<img src="han.jpg" alt="">
+<div class="member-overlay"><span>Du Hân</span></div>
+</a>
+
+<a href="https://vunguyenphan3-sketch.github.io/Ph-ngANh/" class="member-card">
+<img src="Error12.jpg" alt="">
+<div class="member-overlay"><span>Phương Anh</span></div>
+</a>
+
+<a href="https://vunguyenphan3-sketch.github.io/NhuAnh/" class="member-card">
+<img src="nhuanh.jpg" alt="">
+<div class="member-overlay"><span>Như Ánh</span></div>
+</a>
+
+    <footer>&copy; 2026 | DESIGNED BY FANG | 12D5 - TRƯỜNG THPT NGUYỄN KHUYẾN</footer>
+
+    <script>
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.classList.add('petal');
+            petal.innerHTML = Math.random() > 0.5 ? '🌸' : '🌼';
+            petal.style.left = Math.random() * 100 + 'vw';
+            const duration = Math.random() * 4 + 4;
+            petal.style.animationDuration = duration + 's';
+            petal.style.fontSize = Math.random() * 10 + 12 + 'px';
+            document.body.appendChild(petal);
+            setTimeout(() => { petal.remove(); }, duration * 1000);
+        }
+        setInterval(createPetal, 500);
+    </script>
+</body>
+</html>
